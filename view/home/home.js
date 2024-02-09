@@ -93,7 +93,7 @@ $(document).ready(function(){
                     "sLengthMenu":     "Mostrar _MENU_ registros",
                     "sZeroRecords":    "No se encontraron resultados",
                     "sEmptyTable":     "No tiene casos registrados aun",
-                    "sInfo":           "Usted tiene total de _TOTAL_ caso(s) resgistrados",
+                    "sInfo":           "Usted tiene total de _TOTAL_ caso(s) Abiertos",
                     "sInfoEmpty":      "Usted tiene un total de 0 registros",
                     "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
                     "sInfoPostFix":    "",
