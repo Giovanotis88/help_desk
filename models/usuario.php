@@ -12,7 +12,7 @@
                     header("Location:".conectar::ruta()."index.php?m=2");
 					exit();
                 }else{
-                    $sql="SELECT * FROM tb_usuarios WHERE usuario_correo=? and usuario_password=? and id_rol=? and estado=1;";
+                    $sql="SELECT * FROM tb_usuarios WHERE usuario_correo=? and usuario_password=MD5(?) and id_rol=? and estado=1;";
                     $stmt=$conectar->prepare($sql);
                     $stmt->bindValue(1, $correo);
                     $stmt->bindValue(2, $password);
@@ -43,7 +43,7 @@
     public function crear_usuario($nombre_usuario,$apellido_usuario,$usuario_correo,$usuario_password,$id_rol){
         $conectar=parent::conexion();
             parent::set_names();
-            $sql="INSERT INTO tb_usuarios (id_usuario, nombre_usuario, apellido_usuario, usuario_correo, usuario_password, id_rol, fecha_creacion, fecha_modificacion, fecha_eliminacion, estado) VALUES (NULL, ?, ?, ?, ?, ?, now(), NULL, NULL, '1');";
+            $sql="call sp_i_usuario (?,?,?,?,? )";
             $sql=$conectar->prepare($sql);
             $sql->bindValue(1, $nombre_usuario);
             $sql->bindValue(2, $apellido_usuario);
@@ -57,14 +57,15 @@
     public function actualizar_usuario($id_usuario,$nombre_usuario,$apellido_usuario,$usuario_correo,$usuario_password,$id_rol){
         $conectar=parent::conexion();
             parent::set_names();
-            $sql="UPDATE tb_usuarios set nombre_usuario=?,apellido_usuario=?,usuario_correo=?,usuario_password=?,id_rol=? where id_usuario=?";
+            $sql="call sp_update_usuario_01 (?,?,?,?,?,?)";
             $sql=$conectar->prepare($sql);
-            $sql->bindValue(1, $nombre_usuario);
-            $sql->bindValue(2, $apellido_usuario);
-            $sql->bindValue(3, $usuario_correo);
-            $sql->bindValue(4, $usuario_password);
-            $sql->bindValue(5, $id_rol);
-            $sql->bindValue(6, $id_usuario);
+            $sql->bindValue(1, $id_usuario);
+            $sql->bindValue(2, $nombre_usuario);
+            $sql->bindValue(3, $apellido_usuario);
+            $sql->bindValue(4, $usuario_correo);
+            $sql->bindValue(5, $usuario_password);
+            $sql->bindValue(6, $id_rol);
+            
             $success = $sql->execute();
 
     

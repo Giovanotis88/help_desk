@@ -4,54 +4,34 @@ function init (){
     });
 }
 
-// var grupoSelect = document.getElementById('grupoSelect');
-// var categoriaSelect = document.getElementById('categoriaSelect');
 
-// var categoriasPorGrupo = {
-//     equipoMenor: ['(EQ) EQUIPOS TRANSVERSALES', '(RES) RESPIRACION AUTONOMA', '(CI) CILINDROS','(EX) EXTINTORES','(EE) EQUIPOS ESPECIALES','(RV) RESCATE VEHICULAR','(EN) NEUMATICOS','CONSULTAS'],
-//     parqueAutomotor: ['Categoría4', 'Categoría5', 'Categoría6'],
-//     combustible: ['Categoría7', 'Categoría8', 'Categoría9'],
-//     log: ['Categoría10', 'Categoría11', 'Categoría12'],
-//     consulta: ['Categoría13', 'Categoría14', 'Categoría15'],
-//     alimentacion: ['Categoría16', 'Categoría17', 'Categoría18'],
-//     transporte: ['Categoría19', 'Categoría20', 'Categoría21'],
-//     gestion: ['Categoría22', 'Categoría23', 'Categoría24']
-// };
-
-// function actualizarCategorias() {
-   
-//     categoriaSelect.innerHTML = '';
-
- 
-//     var grupoSeleccionado = grupoSelect.value;
-
-   
-//     var categorias = categoriasPorGrupo[grupoSeleccionado];
-
-    
-//     if (categorias && categorias.length > 0) {
-        
-//         categorias.forEach(function(categoria) {
-//             var opcion = document.createElement('option');
-//             opcion.textContent = categoria;
-//             categoriaSelect.appendChild(opcion);
-//         });
-//     } else {
-//         console.error('No se encontraron categorías para el grupo seleccionado');
-//     }
-// }
-
-
-// grupoSelect.addEventListener('change', actualizarCategorias);
-
-
-// actualizarCategorias();
 
 $(document).ready(function() {
     $('#desc_solicitud').summernote({
         placeholder: 'Describa su Solicitud',
         height: 200,
-        lang:"es-ES", });
+        lang:"es-ES",
+        callbacks:{
+            onImageUpload:function(image){
+                console.log("Imagen Detectada...");
+                myimagetreat(image[0]);
+            },
+            onPaste:function(e){
+                console.log("Text Detectado...");
+            }
+        },
+
+        toolbar: [
+            
+            ['style', ['bold', 'italic', 'underline', 'clear']],
+            ['font', ['strikethrough', 'superscript', 'subscript']],
+            ['fontsize', ['fontsize']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['height', ['height']]
+          ]
+
+    });
         $.post("../../controller/estacion.php?op=combo", function(data, status) {
             $('#id_estacion').html(data);            
         

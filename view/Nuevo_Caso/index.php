@@ -87,6 +87,21 @@ if(isset($_SESSION["id_usuario"])) {
                         </div>
                     </div>
 
+                    <div class="col-lg-2">
+                        <fieldset class="form-group">
+                            <label class="form-lable semibold" for="exampleInput">Agregar Archivos</label>
+                            
+                        </fieldset>
+
+                    </div>
+                    <div class="col-lg-8">
+                        <fieldset class="form-group">
+                           
+                            <input type="file" name="fileelement" id="fileelement" class="form-control" multiple>
+                        </fieldset>
+
+                    </div>
+                    <div class="col-lg-12">
                     <div class="form-group row">
                         <label for="exampleSelect" class="col-sm-2 form-control-label">Descripcion de la solicitud (*)</label>
                         <div class="col-sm-10">
@@ -94,6 +109,7 @@ if(isset($_SESSION["id_usuario"])) {
                                 <textarea class="summernote" id="desc_solicitud" name="desc_solicitud"></textarea require>
                             </div>
                         </div>
+                    </div>
                     </div>
 
                     <div class="form-group row">

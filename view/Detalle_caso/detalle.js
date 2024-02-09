@@ -9,30 +9,6 @@ $(document).ready(function(){
     
 
 
-    // $.post("../../controller/caso.php?op=detalle", {id_caso : id_caso}, function (data){
-    //     $('#contdetalle').html(data);
-
-    //  });
-    
-
-    // $.post("../../controller/caso.php?op=mostrar", {id_caso : id_caso}, function (data){
-    //     data =JSON.parse(data);
-    //     $('#estado').html(data.estado_caso);
-    //     $('#numero_caso').html(data.id_caso);
-    //     $('#fecha').html(data.fecha_creacion);
-
-
-    //     $('#tick_titulo').val(data.titulo);
-    //     $('#grupo').val(data.nombre_grupo);
-    //     $('#tick_subcategoria').val(data.nombre_categoria);
-    //     $('#desc_solicitud').summernote('code',data.desc_solicitud);
-
-    //     console.log( data.estado_caso_texto);
-    //     if (data.estado_caso_texto == "Cerrado"){
-    //         $('#pndetalle').hide();
-    //     }
-
-    // });
 
     
            
@@ -50,7 +26,28 @@ $(document).ready(function(){
             $('#respuesta').summernote({
                 placeholder: 'Describa su Solicitud',
                 height: 200,
-                lang:"es-ES", });
+                lang:"es-ES",
+                callbacks:{
+                    onImageUpload:function(image){
+                        console.log("Imagen Detectada...");
+                        myimagetreat(image[0]);
+                    },
+                    onPaste:function(e){
+                        console.log("Text Detectado...");
+                    }
+                },
+        
+                toolbar: [
+                    
+                    ['style', ['bold', 'italic', 'underline', 'clear']],
+                    ['font', ['strikethrough', 'superscript', 'subscript']],
+                    ['fontsize', ['fontsize']],
+                    ['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['height', ['height']]
+                  ]  
+
+            });
                                 $.post("../../controller/estacion.php?op=combo", function(data, status) {
                     $('#id_estacion').html(data);            
                 
@@ -67,7 +64,27 @@ $(document).ready(function(){
 
             $('#desc_solicitud').summernote({
                 height: 400,
-                lang:"es-ES", });
+                lang:"es-ES",
+                callbacks:{
+                    onImageUpload:function(image){
+                        console.log("Imagen Detectada...");
+                        myimagetreat(image[0]);
+                    },
+                    onPaste:function(e){
+                        console.log("Text Detectado...");
+                    }
+                },
+        
+                toolbar: [
+                    
+                    ['style', ['bold', 'italic', 'underline', 'clear']],
+                    ['font', ['strikethrough', 'superscript', 'subscript']],
+                    ['fontsize', ['fontsize']],
+                    ['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['height', ['height']]
+                  ]    
+            });
 
             $('#desc_solicitud').summernote('disable');
 
