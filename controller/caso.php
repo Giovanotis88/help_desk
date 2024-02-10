@@ -2,11 +2,45 @@
 require_once("../config/conexion.php");
 require_once("../models/Caso.php");
 
+require_once("../models/usuario.php");
+$usuario= new Usuario();
+
+require_once("../models/documentos.php");
+$documento= new Documento();
+
 $caso= new Caso();
 
 switch($_GET["op"]){
     case "guardar":
-        $caso->crear_caso($_POST["titulo"],$_POST["nombre_solicitante"],$_POST["id_estacion"],$_POST["id_grupo"],$_POST["id_categoria"],$_POST["desc_solicitud"],$_POST["id_usuario"]);
+        $datos=$caso->crear_caso($_POST["titulo"],$_POST["nombre_solicitante"],$_POST["id_estacion"],$_POST["id_grupo"],$_POST["id_categoria"],$_POST["desc_solicitud"],$_POST["id_usuario"]);
+        if(is_array($datos)==true and count($datos)>0){
+          foreach ($datos as $row) {
+            $output["id_caso"]=$row["id_caso"];
+            if($_FILES['files']['name']==0){
+
+            }else{
+                $countfiles =count($_FILES['files']['name']);
+                $ruta ="../public/documentos/".$output["id_caso"]."/";
+                $files_arr=array();
+
+                if(!file_exists($ruta)){
+                    mkdir($ruta,0777, true);
+                }
+                for($index =0; $index <$countfiles; $index++){
+                    $doc1=$_FILES['files']['tmp_name'][$index];
+                    $destino=$ruta.$_FILES['files']['name'][$index];
+
+                    $documento->insert_document($output["id_caso"],$_FILES['files']['name'][$index]);
+
+                    move_uploaded_file($doc1,$destino);
+
+                }
+
+            }
+
+          }
+        }
+        echo json_encode($datos);
     break;    
 
     case "actualizar":

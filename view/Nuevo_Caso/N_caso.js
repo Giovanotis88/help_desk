@@ -59,6 +59,10 @@ function guardaryeditar(e){
         
         swal("No Es Posible Registrar!", "Campos Incompletos, Por Favor validar !!", "warning");
     }else{
+        var totalfiles =$('#fileelement').val().length;
+        for (var i = 0; i < totalfiles; i++){
+            formData.append("files[]", $('#fileelement')[0].files[i]);
+        }
     $.ajax({
         url: "../../controller/caso.php?op=guardar",
         type:"POST",

@@ -17,7 +17,7 @@ class Documento extends conectar{
         $sql =$conectar->prepare($sql);
         $sql->bindParam(1,$id_caso);
         $sql->execute();
-        $resultado =$sql->fetchAll();
+        return $resultado =$sql->fetchAll(PDO::FETCH_ASSOC);
 
 
 

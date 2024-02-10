@@ -14,7 +14,11 @@
             $sql->bindValue(6, $desc_solicitud);
             $sql->bindValue(7, $id_usuario);
             $sql->execute();
-            return $resultado=$sql->fetchAll();
+
+            $sql1="select last_insert_id() as 'id_caso'";
+            $sql1=$conectar->prepare($sql1);
+            $sql1->execute();
+            return $resultado=$sql1->fetchAll(PDO::FETCH_ASSOC);
 
         }
         public function consulta_caso($id_usuario){
