@@ -54,7 +54,41 @@
         public function listar_ticket_x_id($id_caso){
             $conectar= parent::conexion();
             parent::set_names();
-            $sql="SELECT tb_casos.id_caso, tb_casos.id_usuario, tb_casos.id_categoria, tb_casos.titulo, tb_casos.desc_solicitud, tb_casos.estado_caso, tb_casos.fecha_creacion, tb_usuarios.nombre_usuario, tb_usuarios.apellido_usuario, tb_usuarios.usuario_correo, tb_categoria.nombre_categoria, tb_grupos.id_grupo, tb_grupos.nombre_grupo FROM tb_casos INNER JOIN tb_categoria ON tb_casos.id_categoria = tb_categoria.id_categoria INNER JOIN tb_usuarios ON tb_casos.id_usuario = tb_usuarios.id_usuario INNER JOIN tb_grupos ON tb_casos.id_grupo = tb_grupos.id_grupo WHERE tb_casos.estado = 1 AND tb_casos.id_caso = ?;";
+            $sql="SELECT 
+            tb_casos.id_caso, 
+            tb_casos.id_usuario, 
+            tb_casos.id_categoria, 
+            tb_casos.titulo, 
+            tb_casos.desc_solicitud, 
+            tb_casos.estado_caso, 
+            tb_casos.fecha_creacion, 
+            tb_usuarios.nombre_usuario, 
+            tb_usuarios.apellido_usuario, 
+            tb_usuarios.usuario_correo, 
+            tb_categoria.nombre_categoria, 
+            tb_grupos.id_grupo, 
+            tb_grupos.nombre_grupo, 
+            tb_estaciones.id_estacion,
+            tb_estaciones.nombre_estacion, 
+            tb_estaciones.correoj_1,
+            tb_estaciones.correoj_2,
+            tb_estaciones.correoj_3,
+            tb_estaciones.correoj_4,
+            tb_estaciones.correoj_5,
+            tb_estaciones.correoj_6 
+            FROM 
+            tb_casos 
+            INNER JOIN 
+            tb_estaciones ON tb_casos.id_estacion = tb_estaciones.id_estacion  
+            INNER JOIN 
+            tb_categoria ON tb_casos.id_categoria = tb_categoria.id_categoria 
+            INNER JOIN 
+            tb_usuarios ON tb_casos.id_usuario = tb_usuarios.id_usuario 
+            INNER JOIN 
+            tb_grupos ON tb_casos.id_grupo = tb_grupos.id_grupo 
+            WHERE 
+            tb_casos.estado = 1 
+            AND tb_casos.id_caso = ?;";
             $sql=$conectar->prepare($sql);
             $sql->bindValue(1, $id_caso);
             $sql->execute();

@@ -13,10 +13,10 @@ $caso= new Caso();
 switch($_GET["op"]){
     case "guardar":
         $datos=$caso->crear_caso($_POST["titulo"],$_POST["nombre_solicitante"],$_POST["id_estacion"],$_POST["id_grupo"],$_POST["id_categoria"],$_POST["desc_solicitud"],$_POST["id_usuario"]);
-        if(is_array($datos)==true and count($datos)>0){
+        if(is_array($datos) == true and count($datos)>0){
           foreach ($datos as $row) {
-            $output["id_caso"]=$row["id_caso"];
-            if($_FILES['files']['name']==0){
+            $output["id_caso"] = $row["id_caso"];
+            if (empty($_FILES['files']['name'])){
 
             }else{
                 $countfiles =count($_FILES['files']['name']);
@@ -26,7 +26,7 @@ switch($_GET["op"]){
                 if(!file_exists($ruta)){
                     mkdir($ruta,0777, true);
                 }
-                for($index =0; $index <$countfiles; $index++){
+                for($index =0; $index < $countfiles; $index++){
                     $doc1=$_FILES['files']['tmp_name'][$index];
                     $destino=$ruta.$_FILES['files']['name'][$index];
 
