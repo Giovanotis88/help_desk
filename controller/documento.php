@@ -8,7 +8,7 @@
     switch($_GET["op"]){
         
         case "listar":
-            $datos=$documento->get_doc_ticket($_POST["id_casos"]);
+            $datos=$documento->get_doc_ticket($_POST["id_caso"]);
             $data= Array();
             foreach($datos as $row){
                 $sub_array = array();

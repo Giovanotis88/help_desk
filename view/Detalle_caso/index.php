@@ -69,9 +69,26 @@ if(isset($_SESSION["id_usuario"])) {
 								<input type="text" class="form-control" id="tick_subcategoria" name="tick_subcategoria" readonly>
 							</fieldset>
 						</div>
+
+                        <div class="col-lg-12">
+                                <fieldset class="form-group">
+                                <label class="form-label semibold" for="tick_titulo">Documentos Adjuntos</label>
+                                <table id="documentos_data" class="table table-bordered table-striped table-vcenter js-dataTable-full">
+                                    <thead>
+                                     <tr>
+                                        <th style="width: 90%;">Nombre</th>
+                                        <th class="text-center" style="width: 10%;"></th>
+                                     </tr>
+                                    </thead>
+                                 <tbody>
+
+                                 </tbody>
+                                </table>
+                                </fieldset>
+              </div>
                         
                         <div class="col-sm-12">
-                        <label class="form-label semibold" for="exampleInput">Categoria</label>
+                        <label class="form-label semibold" for="exampleInput">Detalle Solicitud</label>
                             <div class="summernote-theme-10" >
                                 <textarea class="summernote" id="desc_solicitud" name="desc_solicitud"></textarea require>
                             </div>
