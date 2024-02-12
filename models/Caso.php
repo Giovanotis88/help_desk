@@ -25,7 +25,7 @@
 
                 $conectar=parent::conexion();
                 parent::set_names();
-                $sql="SELECT tb_casos.id_caso, tb_casos.fecha_creacion,tb_casos.id_usuario, tb_casos.id_categoria, tb_casos.titulo, tb_casos.desc_solicitud,tb_casos.estado_caso, tb_usuarios.nombre_usuario, tb_usuarios.apellido_usuario, tb_categoria.nombre_categoria FROM tb_casos INNER JOIN tb_categoria ON tb_casos.id_categoria = tb_categoria.id_categoria INNER JOIN tb_usuarios ON tb_casos.id_usuario = tb_usuarios.id_usuario WHERE tb_casos.estado = 1 AND tb_usuarios.id_usuario=?";
+                $sql="SELECT tb_casos.id_caso, tb_casos.fecha_creacion,tb_casos.id_usuario, tb_casos.id_categoria, tb_casos.titulo, tb_casos.desc_solicitud,tb_casos.estado_caso, tb_usuarios.nombre_usuario, tb_usuarios.apellido_usuario, tb_categoria.nombre_categoria, tb_grupos.nombre_grupo  FROM tb_casos INNER JOIN tb_categoria ON tb_casos.id_categoria = tb_categoria.id_categoria INNER JOIN tb_usuarios ON tb_casos.id_usuario = tb_usuarios.id_usuario INNER JOIN tb_grupos ON tb_casos.id_grupo=tb_grupos.id_grupo  WHERE tb_casos.estado = 1 AND tb_usuarios.id_usuario=?";
                 $sql=$conectar->prepare($sql);
                 $sql->bindValue(1, $id_usuario);
                 $sql->execute();
@@ -36,7 +36,7 @@
 
             $conectar=parent::conexion();
             parent::set_names();
-            $sql="SELECT tb_casos.id_caso, tb_casos.fecha_creacion,tb_casos.id_usuario, tb_casos.id_categoria, tb_casos.titulo, tb_casos.desc_solicitud,tb_casos.estado_caso, tb_usuarios.nombre_usuario, tb_usuarios.apellido_usuario, tb_usuarios.apellido_usuario, tb_categoria.nombre_categoria FROM tb_casos INNER JOIN tb_categoria ON tb_casos.id_categoria = tb_categoria.id_categoria INNER JOIN tb_usuarios ON tb_casos.id_usuario = tb_usuarios.id_usuario WHERE tb_casos.estado = 1 ";
+            $sql="SELECT tb_casos.id_caso, tb_casos.fecha_creacion,tb_casos.id_usuario, tb_casos.id_categoria, tb_casos.titulo, tb_casos.desc_solicitud,tb_casos.estado_caso, tb_usuarios.nombre_usuario, tb_usuarios.apellido_usuario, tb_usuarios.apellido_usuario, tb_categoria.nombre_categoria, tb_grupos.nombre_grupo FROM tb_casos INNER JOIN tb_categoria ON tb_casos.id_categoria = tb_categoria.id_categoria INNER JOIN tb_usuarios ON tb_casos.id_usuario = tb_usuarios.id_usuario INNER JOIN tb_grupos ON tb_casos.id_grupo=tb_grupos.id_grupo WHERE tb_casos.estado = 1 ";
             $sql=$conectar->prepare($sql);
             $sql->execute();
             return $resultado=$sql->fetchAll();
@@ -203,7 +203,31 @@
         public function get_abiertos(){
             $conectar=parent::conexion();
                 parent::set_names();
-                $sql="SELECT tb_casos.id_caso, tb_casos.fecha_creacion,tb_casos.id_usuario, tb_casos.id_categoria, tb_casos.titulo, tb_casos.desc_solicitud,tb_casos.estado_caso, tb_usuarios.nombre_usuario, tb_usuarios.apellido_usuario, tb_usuarios.apellido_usuario, tb_categoria.nombre_categoria FROM tb_casos INNER JOIN tb_categoria ON tb_casos.id_categoria = tb_categoria.id_categoria INNER JOIN tb_usuarios ON tb_casos.id_usuario = tb_usuarios.id_usuario WHERE tb_casos.estado = 1 and tb_casos.estado_caso='Abierto'";
+                $sql="SELECT 
+                tb_casos.id_caso, 
+                tb_casos.fecha_creacion,
+                tb_casos.id_usuario, 
+                tb_casos.id_categoria, 
+                tb_casos.titulo, 
+                tb_casos.desc_solicitud,
+                tb_casos.estado_caso,
+                tb_casos.id_grupo,
+                tb_usuarios.nombre_usuario, 
+                tb_usuarios.apellido_usuario, 
+                tb_categoria.nombre_categoria,
+                tb_grupos.nombre_grupo
+            FROM 
+                tb_casos 
+            INNER JOIN 
+                tb_categoria ON tb_casos.id_categoria = tb_categoria.id_categoria 
+            INNER JOIN 
+                tb_usuarios ON tb_casos.id_usuario = tb_usuarios.id_usuario 
+            INNER JOIN
+                tb_grupos 	ON  tb_casos.id_grupo = tb_grupos.id_grupo
+            WHERE 
+                tb_casos.estado = 1 AND 
+                tb_casos.estado_caso = 'Abierto';
+            ";
                 $sql=$conectar->prepare($sql);
                 $sql->execute();
                 return $resultado = $sql->fetchAll();
@@ -223,7 +247,7 @@
 
             $conectar=parent::conexion();
             parent::set_names();
-            $sql="SELECT tb_casos.id_caso, tb_casos.fecha_creacion,tb_casos.id_usuario, tb_casos.id_categoria, tb_casos.titulo, tb_casos.desc_solicitud,tb_casos.estado_caso, tb_usuarios.nombre_usuario, tb_usuarios.apellido_usuario, tb_categoria.nombre_categoria FROM tb_casos INNER JOIN tb_categoria ON tb_casos.id_categoria = tb_categoria.id_categoria INNER JOIN tb_usuarios ON tb_casos.id_usuario = tb_usuarios.id_usuario WHERE tb_casos.estado = ? AND tb_usuarios.id_usuario=?";
+            $sql="SELECT tb_casos.id_caso, tb_casos.fecha_creacion,tb_casos.id_usuario, tb_casos.id_categoria, tb_casos.titulo, tb_casos.desc_solicitud,tb_casos.estado_caso,tb_casos.id_grupo, tb_usuarios.nombre_usuario, tb_usuarios.apellido_usuario, tb_categoria.nombre_categoria, tb_grupos.nombre_grupo FROM tb_casos INNER JOIN tb_categoria ON tb_casos.id_categoria = tb_categoria.id_categoria INNER JOIN tb_usuarios ON tb_casos.id_usuario = tb_usuarios.id_usuario INNER JOIN tb_grupos ON tb_casos.id_grupo=tb_grupos.id_grupo WHERE tb_casos.estado = 1 AND tb_usuarios.id_usuario=? AND tb_casos.estado_caso='Abierto';";
             $sql=$conectar->prepare($sql);
             $sql->bindValue(1, $id_usuario);
             $sql->execute();

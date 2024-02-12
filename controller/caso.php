@@ -62,6 +62,7 @@ switch($_GET["op"]){
             $sub_array=array();
             $sub_array[]=$row["id_caso"];
             $sub_array[] = $row["nombre_usuario"] . ' ' . $row["apellido_usuario"];
+            $sub_array[]=$row["nombre_grupo"];
             $sub_array[]=$row["nombre_categoria"];
             $sub_array[]=$row["titulo"];
             
@@ -91,6 +92,7 @@ switch($_GET["op"]){
             $sub_array=array();
             $sub_array[]=$row["id_caso"];
             $sub_array[] = $row["nombre_usuario"] . ' ' . $row["apellido_usuario"];
+            $sub_array[]=$row["nombre_grupo"];
             $sub_array[]=$row["nombre_categoria"];
             $sub_array[]=$row["titulo"];
                        
@@ -265,14 +267,16 @@ switch($_GET["op"]){
                     $sub_array=array();
                     $sub_array[]=$row["id_caso"];
                     $sub_array[] = $row["nombre_usuario"] . ' ' . $row["apellido_usuario"];
+                    $sub_array[]=$row["nombre_grupo"];
                     $sub_array[]=$row["nombre_categoria"];
                     $sub_array[]=$row["titulo"];
                                
-                    $sub_array[]=date("d/m/y H:i",strtotime($row["fecha_creacion"]));
+                    $sub_array[]=date("d/m/y ",strtotime($row["fecha_creacion"]));
                     
                     if($row["estado_caso"]=="Abierto"){
                         $sub_array[]='<span class="label label-pill label-success">Abierto</span>';
                     }else{
+                        $sub_array[]='<span class="label label-pill label-danger">Cerrado</span>';
                         
                     }            
                     // $sub_array[] = '<button type="button" onClick="vista('.$row["id_caso"].');"  id="'.$row["id_caso"].'" class="btn btn-inline btn-primary btn-sm ladda-button"><div><i class="fa fa-eye"></i></div></button>';
@@ -294,10 +298,12 @@ switch($_GET["op"]){
                     $sub_array=array();
                     $sub_array[]=$row["id_caso"];
                     $sub_array[] = $row["nombre_usuario"] . ' ' . $row["apellido_usuario"];
+                    $sub_array[]=$row["nombre_grupo"];
                     $sub_array[]=$row["nombre_categoria"];
                     $sub_array[]=$row["titulo"];
                     
-                    $sub_array[]=date("d/m/y H:i",strtotime($row["fecha_creacion"]));
+                    $sub_array[]=date("d/m/y ",strtotime($row["fecha_creacion"]));
+                    
                     if($row["estado_caso"]=="Abierto"){
                         $sub_array[]='<span class="label label-pill label-success">Abierto</span>';
                     }else{

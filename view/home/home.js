@@ -75,7 +75,7 @@ $(document).ready(function(){
                         'pdfHtml5'
                         ],
                 "ajax":{
-                    url: '../../controller/caso.php?op=consultar_caso',
+                    url: '../../controller/caso.php?op=consultar_casosopo',
                     type : "post",
                     dataType : "json",
                     data:{ id_usuario : id_usuario},
@@ -186,7 +186,7 @@ $(document).ready(function(){
                     'pdfHtml5'
                     ],
             "ajax":{
-                url: '../../controller/caso.php?op=consultar_casosopo',
+                url: '../../controller/caso.php?op=consultarhome',
                 type : "post",
                 dataType : "json",
                 error: function(e){

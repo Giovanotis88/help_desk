@@ -156,6 +156,7 @@ if($_SESSION["id_rol"]==1){
                         <tr>
                             <th style="width: 5%;">N° de Caso</th>
                             <th class="d-none d-sm-table-cell"style="width: 20%;">Agente Responsable</th>
+							<th style="width: 25%;">Grupo Asignado</th>
                             <th style="width: 25%;">Categoria de Caso</th>
                             <th class="d-none d-sm-table-cell"style="width: 20%;">Titulo</th>                            
                             <th class="d-none d-sm-table-cell"style="width: 20%;">Fecha Creacion</th>
@@ -278,6 +279,7 @@ if($_SESSION["id_rol"]==1){
                         <tr>
                             <th style="width: 5%;">N° de Caso</th>
                             <th class="d-none d-sm-table-cell"style="width: 20%;">Agente Responsable</th>
+							<th style="width: 25%;">Grupo Asignado</th>
                             <th style="width: 25%;">Categoria de Caso</th>
                             <th class="d-none d-sm-table-cell"style="width: 20%;">Titulo</th>                            
                             <th class="d-none d-sm-table-cell"style="width: 20%;">Fecha Creacion</th>

@@ -46,6 +46,10 @@ class Email extends PHPMailer{
         $this->CharSet = 'UTF8';
         $this->addAddress($correo1);
         $this->addAddress($correo2);
+        $this->addAddress($correo3);
+        $this->addAddress($correo4);
+        $this->addAddress($correo5);
+        $this->addAddress($correo6);
         $this->WordWrap = 50;
         $this->IsHTML(true);
         $this->Subject = "Caso Abierto Por medio de Mesa Logistica";
