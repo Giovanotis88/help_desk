@@ -5,13 +5,13 @@ include("class.smtp.php");
 
 /* llamada de las clases necesarias que se usaran en el envio del mail */
 require_once("../config/conexion.php");
-require_once("../Models/Ticket.php");
+require_once("../controller/Caso.php");
 
 class Email extends PHPMailer{
 
     //variable que contiene el correo del destinatario
-    protected $gCorreo = 'giovannyalejandroramos@gmail.com';
-    protected $gContrasena = 'Giovanotis88*';
+    protected $gCorreo = 'mesalogistica@bomberosbogota.gov.co';
+    protected $gContrasena = 'Bogotalog*';
     //variable que contiene la contraseña del destinatario
 
     public function ticket_abierto($id_caso){
@@ -24,7 +24,7 @@ class Email extends PHPMailer{
             $titulo = $row["titulo"];
             $grupo= $row["nombre_grupo"];
             $estacion=$row["nombre_estacion"];
-            // $categoria = $row["nombre_categoria"];
+            $categoria = $row["nombre_categoria"];
             $correo1 = $row["correoj_1"];
             $correo2 = $row["correoj_2"];
             $correo3 = $row["correoj_3"];
@@ -35,16 +35,17 @@ class Email extends PHPMailer{
 
         //IGual//
         $this->IsSMTP();
-        $this->Host = 'smtp.gmail.com';//Aqui el server
+        $this->Host = 'smtp.office365.com';//Aqui el server
         $this->Port = 587;//Aqui el puerto
         $this->SMTPAuth = true;
         $this->Username = $this->gCorreo;
         $this->Password = $this->gContrasena;
         $this->From = $this->gCorreo;
-        $this->SMTPSecure = 'tls';
-        $this->FromName =  "Caso Creado ".$id;
+        $this->SMTPSecure = '';
+        $this->FromName =  "Caso Creado Número ".$id;
         $this->CharSet = 'UTF8';
         $this->addAddress($correo1);
+        $this->addAddress($correo2);
         $this->WordWrap = 50;
         $this->IsHTML(true);
         $this->Subject = "Caso Abierto Por medio de Mesa Logistica";
@@ -55,7 +56,7 @@ class Email extends PHPMailer{
         $cuerpo = str_replace("lblestacion", $estacion, $cuerpo);
         $cuerpo = str_replace("lblgrupo", $grupo, $cuerpo);
         $cuerpo = str_replace("lblTitu", $titulo, $cuerpo);
-        // $cuerpo = str_replace("lblCate", $categoria, $cuerpo);
+        $cuerpo = str_replace("lblCate", $categoria, $cuerpo);
 
         $this->Body = $cuerpo;
         $this->AltBody = strip_tags("Caso Abierto");

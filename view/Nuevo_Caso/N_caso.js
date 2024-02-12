@@ -73,7 +73,7 @@ function guardaryeditar(e){
             data=JSON.parse(data);            
             console.log(data[0].id_caso);
             $.post("../../controller/correo.php?op=ticket_abierto", {id_caso : data[0].id_caso}, function (data) {
-
+                console.log(data);
             });
             $('#id_categoria').val('');
             $('#id_grupo').val('');

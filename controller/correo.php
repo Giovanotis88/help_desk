@@ -1,7 +1,7 @@
 <?php
     /* llamada a las clases necesarias */
     require_once("../config/conexion.php");
-    require_once("../models/Email.php");
+    require_once("../models/Correo.php");
     $email = new Email();
 
     /* opciones del controlador */
