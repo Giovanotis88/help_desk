@@ -75,6 +75,9 @@ function guardaryeditar(e){
             $.post("../../controller/correo.php?op=ticket_abierto", {id_caso : data[0].id_caso}, function (data) {
                 console.log(data);
             });
+            $.post("../../controller/correo.php?op=ticket_asignado", {id_caso : data[0].id_caso}, function (data) {
+                console.log(data);
+            });
             $('#id_categoria').val('');
             $('#id_grupo').val('');
             $('#id_estacion').val('');

@@ -40,11 +40,11 @@ if(isset($_SESSION["id_usuario"])) {
                     <thead>
                         <tr>
                             <th style="width: 5%;">N° de Caso</th>
-                            <th class="d-none d-sm-table-cell"style="width: 20%;">Agente Responsable</th>
+                            <th class="d-none d-sm-table-cell"style="width: 20%;">Agente Responsable Creación</th>
                             <th style="width: 25%;">Grupo Asignado</th>
                             <th style="width: 25%;">Categoria de Caso</th>
                             <th class="d-none d-sm-table-cell"style="width: 20%;">Titulo</th>                            
-                            <th class="d-none d-sm-table-cell"style="width: 20%;">Fecha Creacion</th>
+                            <th class="d-none d-sm-table-cell"style="width: 20%;">Fecha Creación</th>
                             <th class="d-none d-sm-table-cell"style="width: 5%;">Estado Caso</th>
                             <th class="text-center"style="width: 5%;"></th>     
                         </tr>

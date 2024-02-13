@@ -151,6 +151,7 @@ if($_SESSION["id_rol"]==1){
 			</section>
 			
 			<div class="box-typical box-typical-padding">
+			<td><b>Casos Abiertos</b></td> 
                 <table id="casos_sopo" class="table table-bordered table-striped table-vcenter js-dataTable-full">
                     <thead>
                         <tr>
@@ -160,6 +161,26 @@ if($_SESSION["id_rol"]==1){
                             <th style="width: 25%;">Categoria de Caso</th>
                             <th class="d-none d-sm-table-cell"style="width: 20%;">Titulo</th>                            
                             <th class="d-none d-sm-table-cell"style="width: 20%;">Fecha Creacion</th>
+                            <th class="d-none d-sm-table-cell"style="width: 5%;">Estado Caso</th>
+                                
+                        </tr>
+                    </thead>
+                </table>
+
+                    </div>
+					<div class="box-typical box-typical-padding">
+					<td><b>Casos Cerrados</b></td> 
+                <table id="casos_sopoc" class="table table-bordered table-striped table-vcenter js-dataTable-full">
+                   
+				<thead>
+						
+                        <tr>
+                            <th style="width: 5%;">N° de Caso</th>
+                            <th class="d-none d-sm-table-cell"style="width: 20%;">Agente Responsable Cierre</th>
+							<th style="width: 25%;">Grupo Asignado</th>
+                            <th style="width: 25%;">Categoria de Caso</th>
+                            <th class="d-none d-sm-table-cell"style="width: 20%;">Titulo</th>                            
+                            <th class="d-none d-sm-table-cell"style="width: 20%;">Fecha Cierre</th>
                             <th class="d-none d-sm-table-cell"style="width: 5%;">Estado Caso</th>
                                 
                         </tr>

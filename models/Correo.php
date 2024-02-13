@@ -50,6 +50,7 @@ class Email extends PHPMailer{
         $this->addAddress($correo4);
         $this->addAddress($correo5);
         $this->addAddress($correo6);
+        $this->addAddress($usu);
         $this->WordWrap = 50;
         $this->IsHTML(true);
         $this->Subject = "Caso Abierto Por medio de Mesa Logistica";
@@ -108,13 +109,22 @@ class Email extends PHPMailer{
 
     public function ticket_asignado($tick_id){
         $ticket = new Caso();
-        $datos = $ticket->listar_ticket_x_id($tick_id);
+        $datos = $ticket->asignacion_grupo($tick_id);
         foreach ($datos as $row){
-            $id = $row["tick_id"];
-            $usu = $row["usu_nom"];
-            $titulo = $row["tick_titulo"];
-            $categoria = $row["cat_nom"];
-            $correo = $row["usu_correo"];
+            $id = $row["id_caso"];
+            $grupo= $row["nombre_grupo"];
+            $usu = $row["nombre_usuario"];
+            $titulo = $row["titulo"];
+            $estacion=$row["nombre_estacion"];
+            $categoria = $row["nombre_categoria"];
+            $desc=$row["desc_solicitud"];
+            $archivo_adjunto = '../public/documentos/'.$id."nombre_documento";
+            $correo1 = $row["correo_1"];
+            $correo2 = $row["correo_2"];
+            $correo3 = $row["correo_3"];
+            $correo4 = $row["correo_4"];
+            $correo5 = $row["correo_5"];
+            $correo6 = $row["correo_6"];
         }
 
         //IGual//
@@ -128,20 +138,31 @@ class Email extends PHPMailer{
         $this->SMTPSecure = 'tls';
         $this->FromName =  "Ticket Asignado ".$id;
         $this->CharSet = 'UTF8';
-        $this->addAddress($correo);
+        $this->addAddress($correo1);
+        $this->addAddress($correo2);
+        $this->addAddress($correo3);
+        $this->addAddress($correo4);
+        $this->addAddress($correo5);
+        $this->addAddress($correo6);
+         // Ruta del archivo a adjuntar
+        $this->addAttachment($archivo_adjunto); // Agregar archivo adjunto
+        
         $this->WordWrap = 50;
         $this->IsHTML(true);
-        $this->Subject = "Ticket Asignado";
+        $this->Subject = "Caso Asignado";
         //Igual//
         $cuerpo = file_get_contents('../public/AsignarTicket.html'); /* Ruta del template en formato HTML */
         /* parametros del template a remplazar */
+        $cuerpo = str_replace("xgrupo", $grupo, $cuerpo);
         $cuerpo = str_replace("xnroticket", $id, $cuerpo);
         $cuerpo = str_replace("lblNomUsu", $usu, $cuerpo);
+        $cuerpo = str_replace("lblNomUsu", $estacion, $cuerpo);
         $cuerpo = str_replace("lblTitu", $titulo, $cuerpo);
         $cuerpo = str_replace("lblCate", $categoria, $cuerpo);
+        $cuerpo = str_replace("lbldeta", $desc, $cuerpo);
 
         $this->Body = $cuerpo;
-        $this->AltBody = strip_tags("Ticket Asignado");
+        $this->AltBody = strip_tags("Caso Asignado");
         return $this->Send();
     }
 

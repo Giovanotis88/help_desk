@@ -94,6 +94,54 @@
             $sql->execute();
             return $resultado=$sql->fetchAll();
         }
+
+        public function asignacion_grupo($id_caso){
+            $conectar= parent::conexion();
+            parent::set_names();
+            $sql="SELECT 
+            tb_casos.id_caso, 
+            tb_casos.id_usuario, 
+            tb_casos.id_categoria, 
+            tb_casos.titulo, 
+            tb_casos.desc_solicitud, 
+            tb_casos.estado_caso, 
+            tb_casos.fecha_creacion, 
+            tb_usuarios.nombre_usuario, 
+            tb_usuarios.apellido_usuario, 
+            tb_usuarios.usuario_correo, 
+            tb_categoria.nombre_categoria, 
+            tb_grupos.id_grupo, 
+            tb_grupos.nombre_grupo, 
+            tb_estaciones.id_estacion,
+            tb_estaciones.nombre_estacion, 
+            tb_grupos.correo_1,
+            tb_grupos.correo_2,
+            tb_grupos.correo_3,
+            tb_grupos.correo_4,
+            tb_grupos.correo_5,
+            tb_grupos.correo_6,
+            tb_documentos.nombre_documento,
+            tb_documentos.id_caso
+            FROM 
+            tb_casos 
+            INNER JOIN 
+            tb_estaciones ON tb_casos.id_estacion = tb_estaciones.id_estacion  
+            INNER JOIN 
+            tb_categoria ON tb_casos.id_categoria = tb_categoria.id_categoria 
+            INNER JOIN 
+            tb_usuarios ON tb_casos.id_usuario = tb_usuarios.id_usuario 
+            INNER JOIN 
+            tb_grupos ON tb_casos.id_grupo = tb_grupos.id_grupo 
+            INNER JOIN 
+            tb_documentos ON tb_casos.id_caso =tb_documentos.id_caso
+            WHERE 
+            tb_casos.estado = 1 
+            AND tb_casos.id_caso = ?";
+            $sql=$conectar->prepare($sql);
+            $sql->bindValue(1, $id_caso);
+            $sql->execute();
+            return $resultado=$sql->fetchAll();
+        }
         public function detalle_caso($id_caso,$id_usuario,$desc_detalle){
             $conectar=parent::conexion();
             parent::set_names();
@@ -254,9 +302,17 @@
             return $resultado=$sql->fetchAll();
 
 }
+        public function consulta_casosopoc($id_usuario){
 
+            $conectar=parent::conexion();
+            parent::set_names();
+            $sql="SELECT tb_casos.id_caso, tb_detallecaso.fecha_creacion, tb_casos.id_categoria, tb_casos.titulo, tb_casos.desc_solicitud, tb_casos.estado_caso, tb_casos.id_grupo, tb_usuarios.nombre_usuario, tb_usuarios.apellido_usuario, tb_categoria.nombre_categoria, tb_grupos.nombre_grupo, tb_detallecaso.id_usuario, tb_detallecaso.desc_detalle FROM tb_casos INNER JOIN tb_categoria ON tb_casos.id_categoria = tb_categoria.id_categoria INNER JOIN tb_usuarios ON tb_casos.id_usuario = tb_usuarios.id_usuario INNER JOIN tb_detallecaso ON tb_casos.id_caso = tb_detallecaso.id_caso INNER JOIN tb_grupos ON tb_casos.id_grupo = tb_grupos.id_grupo WHERE tb_casos.estado = 1 AND tb_detallecaso.id_usuario = ? AND tb_detallecaso.desc_detalle = 'Caso Cerrado';";
+            $sql=$conectar->prepare($sql);
+            $sql->bindValue(1, $id_usuario);
+            $sql->execute();
+            return $resultado=$sql->fetchAll();     
 
-        
+        } 
         
     }
 

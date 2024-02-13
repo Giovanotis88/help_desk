@@ -320,6 +320,37 @@ switch($_GET["op"]){
                 echo json_encode($results);    
         
             break;
+
+            case "consultar_casosopoc":
+                $datos=$caso->consulta_casosopoc($_POST["id_usuario"]);
+                $data=Array();
+                foreach($datos as $row){
+                    $sub_array=array();
+                    $sub_array[]=$row["id_caso"];
+                    $sub_array[] = $row["nombre_usuario"] . ' ' . $row["apellido_usuario"];
+                    $sub_array[]=$row["nombre_grupo"];
+                    $sub_array[]=$row["nombre_categoria"];
+                    $sub_array[]=$row["titulo"];
+                    
+                    $sub_array[]=date("d/m/y ",strtotime($row["fecha_creacion"]));
+                    
+                    if($row["estado_caso"]=="Cerrado"){
+                        $sub_array[]='<span class="label label-pill label-danger">Cerrado</span>';
+                    }else{
+                        
+                    }  
+                    //$sub_array[] = '<button type="button" onClick="vista('.$row["id_caso"].');"  id="'.$row["id_caso"].'" class="btn btn-inline btn-primary btn-sm ladda-button"><div><i class="fa fa-eye"></i></div></button>';
+                    $data[]=$sub_array;
+                }
+                $results = array(
+                    "sEcho"=>1,
+                    "iTotalRecords"=>count($data),
+                    "iTotalDisplayRecords"=>count($data),
+                    "aaData"=>$data);
+                echo json_encode($results);    
+        
+            break;
+        
         
     
     
