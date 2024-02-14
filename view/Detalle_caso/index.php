@@ -53,7 +53,7 @@ if(isset($_SESSION["id_usuario"])) {
                         <div id="estado" ></div>
                         <div style="margin-top: 40px;"></div> 
 							<fieldset class="form-group">
-								<label class="form-label semibold" for="tick_titulo">Titulo</label>
+								<label class="form-label semibold" for="tick_titulo">Título</label>
 								<input type="text" class="form-control" id="tick_titulo" name="tick_titulo" readonly>
 							</fieldset>
 						</div>
@@ -88,9 +88,10 @@ if(isset($_SESSION["id_usuario"])) {
               </div>
                         
                         <div class="col-sm-12">
-                        <label class="form-label semibold" for="exampleInput">Detalle Solicitud</label>
+                        <label class="form-label semibold" for="exampleInput">Detalle Solicitúd</label>
                             <div class="summernote-theme-10" >
                                 <textarea class="summernote" id="desc_solicitud" name="desc_solicitud"></textarea require>
+                                
                             </div>
                         </div>
                     </div>
@@ -110,10 +111,17 @@ if(isset($_SESSION["id_usuario"])) {
             <p><b>Ingrese el Detalle del Caso </b></p>
             
             <div class="form-group row">
-                        <label for="exampleSelect" class="col-sm-2 form-control-label">Descripcion </label>
+                        <label for="exampleSelect" class="col-sm-2 form-control-label">Descripción </label>
                         <div class="col-sm-10">
                             <div class="summernote-theme-10" >
                                 <textarea class="summernote" id="respuesta" name="respuesta"></textarea require>
+                                <div class="col-lg-8">
+                        <fieldset class="form-group">
+                           
+                            <input type="file" name="fileelementd" id="fileelementd" class="form-control" multiple>
+                        </fieldset>
+
+                    </div>
                             </div>
                         </div>
 

@@ -53,7 +53,7 @@ class Email extends PHPMailer{
         $this->addAddress($usu);
         $this->WordWrap = 50;
         $this->IsHTML(true);
-        $this->Subject = "Caso Abierto Por medio de Mesa Logistica";
+        $this->Subject = "Caso Abierto Por medio de Mesa Logística #".$id;
         //Igual//
         $cuerpo = file_get_contents('../public/NuevoTicket.html'); /* Ruta del template en formato HTML */
         /* parametros del template a remplazar */
@@ -118,7 +118,8 @@ class Email extends PHPMailer{
             $estacion=$row["nombre_estacion"];
             $categoria = $row["nombre_categoria"];
             $desc=$row["desc_solicitud"];
-            $archivo_adjunto = '../public/documentos/'.$id."nombre_documento";
+            $docu=$row["nombre_documento"];
+            
             $correo1 = $row["correo_1"];
             $correo2 = $row["correo_2"];
             $correo3 = $row["correo_3"];
@@ -136,7 +137,7 @@ class Email extends PHPMailer{
         $this->Password = $this->gContrasena;
         $this->From = $this->gCorreo;
         $this->SMTPSecure = 'tls';
-        $this->FromName =  "Ticket Asignado ".$id;
+        $this->FromName =  "Caso Asignado Número" ." ".$id ."  ".$grupo;
         $this->CharSet = 'UTF8';
         $this->addAddress($correo1);
         $this->addAddress($correo2);
@@ -144,12 +145,13 @@ class Email extends PHPMailer{
         $this->addAddress($correo4);
         $this->addAddress($correo5);
         $this->addAddress($correo6);
-         // Ruta del archivo a adjuntar
+        $archivo_adjunto = '../public/Documentos/'.$id.'/'.$docu;
+        
         $this->addAttachment($archivo_adjunto); // Agregar archivo adjunto
         
         $this->WordWrap = 50;
         $this->IsHTML(true);
-        $this->Subject = "Caso Asignado";
+        $this->Subject = "Caso Asignado Mesa Logística # ".$id;
         //Igual//
         $cuerpo = file_get_contents('../public/AsignarTicket.html'); /* Ruta del template en formato HTML */
         /* parametros del template a remplazar */

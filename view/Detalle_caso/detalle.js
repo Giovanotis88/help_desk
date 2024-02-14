@@ -174,34 +174,40 @@ $(document).on("click", "#btnenviar", function() {
 });
     }
 });
-$(document).on("click","#btncerrar", function(){
+$(document).on("click", "#btncerrar", function() {
     swal({
-    title: "Atención",
-    text: "Esta seguro de Cerrar el Ticket?",
-    type: "warning",
-    showCancelButton: true,
-    confirmButtonClass: "btn-warning",
-    confirmButtonText: "Si",
-    cancelButtonText: "No",
-    closeOnConfirm: false
+        title: "Atención",
+        text: "¿Está seguro de cerrar el ticket?",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonClass: "btn-warning",
+        confirmButtonText: "Sí",
+        cancelButtonText: "No",
+        closeOnConfirm: false
     },
     function(isConfirm) {
-    if (isConfirm) {
-       var id_caso= getUrlParameter('ID');
-       var id_usuario = $('#id_usuario').val();
-       $.post("../../controller/caso.php?op=actualizar", { id_caso : id_caso,id_usuario:id_usuario }, function (data) {
+        if (isConfirm) {
+            var id_caso = getUrlParameter('ID');
+            var id_usuario = $('#id_usuario').val();
+            var desc_detalle = $('#respuesta').val();
+            $.post("../../controller/caso.php?op=actualizar", { id_caso: id_caso, id_usuario: id_usuario, desc_detalle: desc_detalle }, function(data) {
+                // Llamada Ajax completada
+                listardetalle(id_caso);
+                swal({
+                    title: "¡Bien!",
+                    text: "Ticket cerrado correctamente.",
+                    type: "success",
+                    confirmButtonClass: "btn-success"
+                });
+            })
+            .fail(function() {
+                // Manejar errores de la llamada Ajax
+                swal("¡Error!", "Hubo un error al cerrar el ticket.", "error");
+            });
+        }
+    });
+});
 
-       }); 
-       listardetalle(id_caso);
-       swal({
-       title: "Bien!",
-       text: "Ticket Cerrado correctamente.",
-       type: "success",
-       confirmButtonClass: "btn-success"
-       });
-      }
-});
-});
 // $(document).on("click", "#btncerrar", function() {
 //     console.log("Testcerrar");
   

@@ -45,7 +45,7 @@ switch($_GET["op"]){
 
     case "actualizar":
         $caso->actualizar($_POST["id_caso"]);
-        $caso->cerrar($_POST["id_caso"],$_POST["id_usuario"]);
+        $caso->cerrar($_POST["id_caso"],$_POST["id_usuario"],$_POST["desc_detalle"]);
     break; 
 
     case "categoria":           
@@ -138,7 +138,7 @@ switch($_GET["op"]){
                                         echo 'Usuario Solicitante';
 
                                     }else{
-                                        echo ' Usuario Soporte';
+                                        echo ' Usuario Mesa Logística';
 
                                     }
                                                                

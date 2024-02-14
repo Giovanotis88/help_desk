@@ -45,7 +45,7 @@
 
             $conectar=parent::conexion();
             parent::set_names();
-            $sql="SELECT tb_detallecaso.id_casodesc,tb_detallecaso.desc_detalle,tb_detallecaso.fecha_creacion,tb_usuarios.nombre_usuario,tb_usuarios.apellido_usuario, tb_usuarios.id_rol FROM tb_detallecaso INNER JOIN tb_usuarios ON tb_detallecaso.id_usuario = tb_usuarios.id_usuario WHERE tb_detallecaso.id_caso =?";
+            $sql="SELECT tb_detallecaso.id_casodesc,tb_detallecaso.desc_detalle,tb_detallecaso.fecha_creacion,tb_usuarios.nombre_usuario,tb_usuarios.apellido_usuario, tb_usuarios.id_rol FROM tb_detallecaso INNER JOIN tb_usuarios ON tb_detallecaso.id_usuario = tb_usuarios.id_usuario WHERE tb_detallecaso.id_caso =? ";
             $sql=$conectar->prepare($sql);
             $sql->bindValue(1, $id_caso);
             $sql->execute();
@@ -163,15 +163,16 @@
             $sql->execute();
             return $resultado=$sql->fetchAll();
         }
-        public function cerrar($id_caso,$id_usuario){
+        public function cerrar($id_caso,$id_usuario,$desc_detalle){
             $conectar=parent::conexion();
             parent::set_names();
-            $sql="INSERT INTO tb_detallecaso (id_casodesc,id_caso,id_usuario, desc_detalle, fecha_creacion, estado) VALUES (NULL, ?, ?, 'Caso Cerrado',now(), '1')";
+            $sql="INSERT INTO tb_detallecaso (id_casodesc,id_caso,id_usuario, desc_detalle, fecha_creacion, estado) VALUES (NULL, ?, ?, ?,now(), '2')";
             $sql=$conectar->prepare($sql);
             $sql->bindValue(1, $id_caso);
             $sql->bindValue(2, $id_usuario);
+            $sql->bindValue(3, $desc_detalle);
             $sql->execute();
-            return $resultado=$sql->fetchAll();
+            // return $resultado=$sql->fetchAll();
 
 
 
