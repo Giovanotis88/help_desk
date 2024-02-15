@@ -45,7 +45,32 @@ switch($_GET["op"]){
 
     case "actualizar":
         $caso->actualizar($_POST["id_caso"]);
-        $caso->cerrar($_POST["id_caso"],$_POST["id_usuario"],$_POST["desc_detalle"]);
+        $datos=$caso->cerrar($_POST["id_caso"],$_POST["id_usuario"],$_POST["desc_detalle"]);
+        if(is_array($datos) == true and count($datos)>0){
+            foreach ($datos as $row) {
+                $output["id_caso"] = $row["id_caso"];
+                if (empty($_FILES['files']['name'])){
+
+                }else{
+                    $countfiles =count($_FILES['files']['name']);
+                    $ruta ="../public/Documentos_Cierre/".$output["id_caso"]."/";
+                    $files_arr=array();
+                    if(!file_exists($ruta)){
+                        mkdir($ruta,0777, true);
+                    }
+                    for($index =0; $index < $countfiles; $index++){
+                        $doc1=$_FILES['files']['tmp_name'][$index];
+                        $destino=$ruta.$_FILES['files']['name'][$index];
+    
+                        $documento->insert_document_detalle($output["id_caso"],$_FILES['files']['name'][$index]);
+    
+                        move_uploaded_file($doc1,$destino);
+    
+                    }
+
+                }
+                }
+        }
     break; 
 
     case "categoria":           
@@ -53,7 +78,6 @@ switch($_GET["op"]){
              
         
     break;
-
 
     case "consultar_caso":
         $datos=$caso->consulta_caso($_POST["id_usuario"]);
@@ -83,7 +107,6 @@ switch($_GET["op"]){
         echo json_encode($results);    
 
     break;
-
 
     case "consultar":
         $datos=$caso->consulta();
@@ -116,8 +139,8 @@ switch($_GET["op"]){
     break;
 
     case "detalle";
-    $datos = $caso->detalle_x_caso($_POST["id_caso"]);
-    ?>
+        $datos = $caso->detalle_x_caso($_POST["id_caso"]);
+        ?>
           <?php
             foreach ($datos as $row){
                 ?>
@@ -169,7 +192,7 @@ switch($_GET["op"]){
 
           ?>
 
-    <?php
+            <?php
     break;
 
     case "mostrar";
@@ -198,18 +221,16 @@ switch($_GET["op"]){
                 
             }
             echo json_encode($output);
-        }
-        break;
+            }
+    break;
     
-        case "insertdetalle":
+    case "insertdetalle":
             $caso->detalle_caso($_POST["id_caso"], $_POST["id_usuario"], $_POST["desc_detalle"]);
-            break;
-        
+    break;
 
-
-            case "total";
-            $datos=$caso->get_casos();  
-            if(is_array($datos)==true and count($datos)>0){
+    case "total";
+        $datos=$caso->get_casos();  
+        if(is_array($datos)==true and count($datos)>0){
                 foreach($datos as $row)
                 {
                     $output["TOTAL"] = $row["TOTAL"];
@@ -217,9 +238,9 @@ switch($_GET["op"]){
                 }
                 echo json_encode($output);
             }   
-            break;
+    break;
             
-            case "total_abierto";
+    case "total_abierto";
                 $datos=$caso->get_casos_abierto();  
                 if(is_array($datos)==true and count($datos)>0){
                     foreach($datos as $row)
@@ -229,9 +250,9 @@ switch($_GET["op"]){
                     }
                     echo json_encode($output);
                 }   
-            break;
+    break;
     
-            case "total_cerrado";
+    case "total_cerrado";
                 $datos=$caso->get_casos_cerrado();  
                 if(is_array($datos)==true and count($datos)>0){
                     foreach($datos as $row)
@@ -241,26 +262,24 @@ switch($_GET["op"]){
                     }
                     echo json_encode($output);
                 }   
-            break;
+    break;
+    
+    case "grafico";
+        $datos=$caso->get_casos_grafico();  
+        echo json_encode($datos);
+    break;
 
+    case "graficoestacion";
+        $datos=$caso->get_casos_estacion();  
+        echo json_encode($datos);
+    break;
     
-            case "grafico";
-            $datos=$caso->get_casos_grafico();  
-            echo json_encode($datos);
-            break;
-
-            case "graficoestacion";
-            $datos=$caso->get_casos_estacion();  
-            echo json_encode($datos);
-            break;
+    case "graficogrupo";
+        $datos=$caso->get_casos_grupo();  
+        echo json_encode($datos);
+    break;
     
-            case "graficogrupo";
-            $datos=$caso->get_casos_grupo();  
-            echo json_encode($datos);
-            break;
-    
-    
-            case "consultarhome":
+    case "consultarhome":
                 $datos=$caso->get_abiertos();
                 $data=Array();
                 foreach($datos as $row){
@@ -289,12 +308,12 @@ switch($_GET["op"]){
                     "aaData"=>$data);
                 echo json_encode($results);    
         
-            break;
+    break;
         
-            case "consultar_casosopo":
+    case "consultar_casosopo":
                 $datos=$caso->consulta_casosopo($_POST["id_usuario"]);
                 $data=Array();
-                foreach($datos as $row){
+          foreach($datos as $row){
                     $sub_array=array();
                     $sub_array[]=$row["id_caso"];
                     $sub_array[] = $row["nombre_usuario"] . ' ' . $row["apellido_usuario"];
@@ -319,9 +338,9 @@ switch($_GET["op"]){
                     "aaData"=>$data);
                 echo json_encode($results);    
         
-            break;
+    break;
 
-            case "consultar_casosopoc":
+    case "consultar_casosopoc":
                 $datos=$caso->consulta_casosopoc($_POST["id_usuario"]);
                 $data=Array();
                 foreach($datos as $row){
@@ -349,7 +368,7 @@ switch($_GET["op"]){
                     "aaData"=>$data);
                 echo json_encode($results);    
         
-            break;
+    break;
         
         
     

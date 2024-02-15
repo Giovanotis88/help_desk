@@ -173,7 +173,10 @@
             $sql->bindValue(3, $desc_detalle);
             $sql->execute();
             // return $resultado=$sql->fetchAll();
-
+            $sql1="select last_insert_id() as 'id_caso'";
+            $sql1=$conectar->prepare($sql1);
+            $sql1->execute();
+            return $resultado=$sql1->fetchAll(PDO::FETCH_ASSOC);
 
 
         }
@@ -187,8 +190,6 @@
             $sql->execute();
             return $resultado = $sql->fetchAll();
         }
-        
-        
 
         public function get_casos_abierto(){
             $conectar=parent::conexion();

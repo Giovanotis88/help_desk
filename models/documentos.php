@@ -19,7 +19,14 @@ class Documento extends conectar{
         $sql->execute();
         return $resultado =$sql->fetchAll(PDO::FETCH_ASSOC);
 
-
+    }
+    public function insert_document_detalle($id_caso,$det_nom){
+        $conectar=parent::conexion();
+        $sql="INSERT INTO tb_documento_detalle (det_id,id_caso,det_nom,estado)VALUES(null,?,?,1)";
+        $sql=$conectar->prepare($sql);
+        $sql->bindParam(1,$id_caso);
+        $sql->bindParam(2,$det_nom);
+        $sql->execute();
 
     }
 

@@ -116,20 +116,23 @@ if(isset($_SESSION["id_usuario"])) {
                             <div class="summernote-theme-10" >
                                 <textarea class="summernote" id="respuesta" name="respuesta"></textarea require>
                                 <div class="col-lg-8">
-                        <fieldset class="form-group">
-                           
-                            <input type="file" name="fileelementd" id="fileelementd" class="form-control" multiple>
-                        </fieldset>
+         
+                </div>
+                </div>
+            </div>
 
-                    </div>
-                            </div>
-                        </div>
+            <div class="col-lg-6">
+                <fieldset class="form-group">
+                  <label class="form-label semibold" for="fileElem">Documentos De Cierre</label>
+                  <input type="file" name="fileElem" id="fileElem" class="form-control">
+                </fieldset>
+            </div>
 
-                        <div class="col-lg-12">
-                            <button type="button" id="btncerrar" class="btn btn-inline btn-danger"style="float: right;">Cerrar caso</button>
-                            <button type="button" id="btnenviar" class="btn btn-inline btn-primary"style="float: right;">Actualizar</button>
-                            
-                        </div>
+
+            <div class="col-lg-12">
+                <button type="button" id="btncerrar" class="btn btn-inline btn-danger"style="float: right;">Cerrar caso</button>
+                <button type="button" id="btnenviar" class="btn btn-inline btn-primary"style="float: right;">Actualizar</button>               
+            </div>
                 </div>
 	    	</div>
         </div>				
