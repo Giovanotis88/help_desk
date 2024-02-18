@@ -129,7 +129,7 @@
         public function get_usuario_x_casos_cerrado($id_usuario){
             $conectar=parent::conexion();
                 parent::set_names();
-                $sql="SELECT COUNT(*) as TOTAL FROM tb_detallecaso WHERE id_usuario=? and desc_detalle= 'Caso Cerrado';";
+                $sql="SELECT COUNT(*) as TOTAL FROM tb_detallecaso WHERE id_usuario=? and estado=2;";
                 $sql=$conectar->prepare($sql);
                 $sql->bindValue(1, $id_usuario);
                 $sql->execute();

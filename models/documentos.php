@@ -30,7 +30,15 @@ class Documento extends conectar{
 
     }
 
-}
+    public function get_doc_detalle_ticket ($id_caso){
+        $conectar=parent::conexion();
+        $sql="SELECT * FROM tb_documento_detalle WHERE id_caso=?";
+        $sql =$conectar->prepare($sql);
+        $sql->bindParam(1,$id_caso);
+        $sql->execute();
+        return $resultado =$sql->fetchAll(PDO::FETCH_ASSOC);
 
+}
+}
 
 ?>

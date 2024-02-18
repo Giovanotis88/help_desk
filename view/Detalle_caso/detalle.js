@@ -195,6 +195,12 @@ $(document).on("click", "#btncerrar", function() {
                 for (var i = 0; i < totalfiles; i++) {
                     formData.append("files[]", $('#fileElem')[0].files[i]);
                 }    
+                swal({
+                    title: "¡Bien!",
+                    text: "Ticket cerrado correctamente.",
+                    type: "success",
+                    confirmButtonClass: "btn-success"
+                });
                 $.ajax({
                     url: "../../controller/caso.php?op=actualizar",
                     type: "POST",
@@ -204,19 +210,22 @@ $(document).on("click", "#btncerrar", function() {
                     success: function(data) {
                         console.log(data);
                         listardetalle(id_caso);
+                        $('#fileElem').val('');
 
-                        swal({
-                            title: "¡Bien!",
-                            text: "Ticket cerrado correctamente.",
-                            type: "success",
-                            confirmButtonClass: "btn-success"
-                        });
+                        $.post("../../controller/correo.php?op=ticket_cerrado", {id_caso : id_caso}, function (data){
+                            
+                        
+                    });
                     }
+                    
                 });
+            
             }
         }
     });
+    
 });
+
 
 // $(document).on("click", "#btncerrar", function() {
 //     console.log("Testcerrar");

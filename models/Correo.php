@@ -68,15 +68,30 @@ class Email extends PHPMailer{
         return $this->Send();
     }
 
-    public function ticket_cerrado($tick_id){
+    public function ticket_cerrado($id_caso){
         $ticket = new Caso();
-        $datos = $ticket->listar_ticket_x_id($tick_id);
+        $datos = $ticket->asignacion_grupo($id_caso);
         foreach ($datos as $row){
-            $id = $row["tick_id"];
-            $usu = $row["usu_nom"];
-            $titulo = $row["tick_titulo"];
-            $categoria = $row["cat_nom"];
-            $correo = $row["usu_correo"];
+            $id = $row["id_caso"];
+            $usu = $row["nombre_usuario"];
+            $titulo = $row["titulo"];
+            $grupo= $row["nombre_grupo"];
+            $estacion=$row["nombre_estacion"];
+            $categoria = $row["nombre_categoria"];
+            $desc=$row["desc_solicitud"];
+            $docu=$row["det_nom"];
+            $correo1 = $row["correoj_1"];
+            $correo2 = $row["correoj_2"];
+            $correo3 = $row["correoj_3"];
+            $correo4 = $row["correoj_4"];
+            $correo5 = $row["correoj_5"];
+            $correo6 = $row["correoj_6"];
+            $correo7 = $row["correo_1"];
+            $correo8 = $row["correo_2"];
+            $correo9 = $row["correo_3"];
+            $correo10 = $row["correo_4"];
+            $correo11 = $row["correo_5"];
+            $correo12 = $row["correo_6"];
         }
 
         //IGual//
@@ -88,19 +103,38 @@ class Email extends PHPMailer{
         $this->Password = $this->gContrasena;
         $this->From = $this->gCorreo;
         $this->SMTPSecure = 'tls';
-        $this->FromName = "Ticket Cerrado ".$id;
+        $this->FromName = "Caso Cerrado Numero  ".$id;
         $this->CharSet = 'UTF8';
-        $this->addAddress($correo);
+        $this->addAddress($correo1);
+        $this->addAddress($correo2);
+        $this->addAddress($correo3);
+        $this->addAddress($correo4);
+        $this->addAddress($correo5);
+        $this->addAddress($correo6);
+        $this->addAddress($correo7);
+        $this->addAddress($correo8);
+        $this->addAddress($correo9);
+        $this->addAddress($correo10);
+        $this->addAddress($correo11);
+        $this->addAddress($correo12);
+        
+        $archivo_adjunto = '../public/Documentos_Cierre/'.$id.'/'.$docu;
+        
+        $this->addAttachment($archivo_adjunto); // Agregar archivo adjunto
+
         $this->WordWrap = 50;
         $this->IsHTML(true);
-        $this->Subject = "Ticket Cerrado";
+        $this->Subject = "Caso cerrado Mesa Logística";
         //Igual//
         $cuerpo = file_get_contents('../public/CerradoTicket.html'); /* Ruta del template en formato HTML */
         /* parametros del template a remplazar */
+        $cuerpo = str_replace("xsolicitante", $estacion, $cuerpo);
         $cuerpo = str_replace("xnroticket", $id, $cuerpo);
-        $cuerpo = str_replace("lblNomUsu", $usu, $cuerpo);
+        $cuerpo = str_replace("lblgrup", $grupo, $cuerpo);        
+        $cuerpo = str_replace("lblNomUsu", $usu, $cuerpo);        
         $cuerpo = str_replace("lblTitu", $titulo, $cuerpo);
         $cuerpo = str_replace("lblCate", $categoria, $cuerpo);
+        $cuerpo = str_replace("lbldeta", $desc, $cuerpo);
 
         $this->Body = $cuerpo;
         $this->AltBody = strip_tags("Ticket Cerrado");
@@ -112,6 +146,7 @@ class Email extends PHPMailer{
         $datos = $ticket->asignacion_grupo($tick_id);
         foreach ($datos as $row){
             $id = $row["id_caso"];
+            $estacion=$row["nombre_estacion"];
             $grupo= $row["nombre_grupo"];
             $usu = $row["nombre_usuario"];
             $titulo = $row["titulo"];
@@ -155,10 +190,11 @@ class Email extends PHPMailer{
         //Igual//
         $cuerpo = file_get_contents('../public/AsignarTicket.html'); /* Ruta del template en formato HTML */
         /* parametros del template a remplazar */
-        $cuerpo = str_replace("xgrupo", $grupo, $cuerpo);
+        
+        $cuerpo = str_replace("xsolicitante", $estacion, $cuerpo);
         $cuerpo = str_replace("xnroticket", $id, $cuerpo);
         $cuerpo = str_replace("lblNomUsu", $usu, $cuerpo);
-        $cuerpo = str_replace("lblNomUsu", $estacion, $cuerpo);
+        $cuerpo = str_replace("lblgrup", $grupo, $cuerpo);
         $cuerpo = str_replace("lblTitu", $titulo, $cuerpo);
         $cuerpo = str_replace("lblCate", $categoria, $cuerpo);
         $cuerpo = str_replace("lbldeta", $desc, $cuerpo);

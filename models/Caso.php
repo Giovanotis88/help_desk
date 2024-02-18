@@ -121,7 +121,10 @@
             tb_grupos.correo_5,
             tb_grupos.correo_6,
             tb_documentos.nombre_documento,
-            tb_documentos.id_caso
+            tb_documentos.id_caso,
+            tb_documento_detalle.det_nom,
+            tb_documento_detalle.id_caso
+            
             FROM 
             tb_casos 
             INNER JOIN 
@@ -134,9 +137,11 @@
             tb_grupos ON tb_casos.id_grupo = tb_grupos.id_grupo 
             INNER JOIN 
             tb_documentos ON tb_casos.id_caso =tb_documentos.id_caso
+            INNER JOIN 
+            tb_documento_detalle ON tb_casos.id_caso =tb_documento_detalle.id_caso
             WHERE 
             tb_casos.estado = 1 
-            AND tb_casos.id_caso = ?";
+            AND tb_casos.id_caso = ?;";
             $sql=$conectar->prepare($sql);
             $sql->bindValue(1, $id_caso);
             $sql->execute();
@@ -308,7 +313,7 @@
 
             $conectar=parent::conexion();
             parent::set_names();
-            $sql="SELECT tb_casos.id_caso, tb_detallecaso.fecha_creacion, tb_casos.id_categoria, tb_casos.titulo, tb_casos.desc_solicitud, tb_casos.estado_caso, tb_casos.id_grupo, tb_usuarios.nombre_usuario, tb_usuarios.apellido_usuario, tb_categoria.nombre_categoria, tb_grupos.nombre_grupo, tb_detallecaso.id_usuario, tb_detallecaso.desc_detalle FROM tb_casos INNER JOIN tb_categoria ON tb_casos.id_categoria = tb_categoria.id_categoria INNER JOIN tb_usuarios ON tb_casos.id_usuario = tb_usuarios.id_usuario INNER JOIN tb_detallecaso ON tb_casos.id_caso = tb_detallecaso.id_caso INNER JOIN tb_grupos ON tb_casos.id_grupo = tb_grupos.id_grupo WHERE tb_casos.estado = 1 AND tb_detallecaso.id_usuario = ? AND tb_detallecaso.desc_detalle = 'Caso Cerrado';";
+            $sql="SELECT tb_casos.id_caso, tb_detallecaso.fecha_creacion, tb_casos.id_categoria, tb_casos.titulo, tb_casos.desc_solicitud, tb_casos.estado_caso, tb_casos.id_grupo, tb_usuarios.nombre_usuario, tb_usuarios.apellido_usuario, tb_categoria.nombre_categoria, tb_grupos.nombre_grupo, tb_detallecaso.id_usuario, tb_detallecaso.desc_detalle FROM tb_casos INNER JOIN tb_categoria ON tb_casos.id_categoria = tb_categoria.id_categoria INNER JOIN tb_usuarios ON tb_casos.id_usuario = tb_usuarios.id_usuario INNER JOIN tb_detallecaso ON tb_casos.id_caso = tb_detallecaso.id_caso INNER JOIN tb_grupos ON tb_casos.id_grupo = tb_grupos.id_grupo WHERE tb_casos.estado = 1 AND tb_detallecaso.id_usuario = ? AND tb_detallecaso.estado=2;";
             $sql=$conectar->prepare($sql);
             $sql->bindValue(1, $id_usuario);
             $sql->execute();

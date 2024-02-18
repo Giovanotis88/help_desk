@@ -175,7 +175,41 @@ switch($_GET["op"]){
 								<div class="cont">
 									<div class="cont-in">
 										<p><?php echo  $row['desc_detalle'] ;?></p>
-										
+										<br>
+                                        <?php
+                                            $datos_det=$documento->get_doc_detalle_ticket($row["id_casodesc"]);
+                                            if(is_array($datos_det)==true and count ($datos_det)>0){
+                                                ?>
+                                            <p><strong> Archivos de Cierre</strong></p>
+                                            <p>
+                                                            <table class="table table-bordered table-striped table-vcenter js-dataTable-full">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th style="width: 60%;"> Nombre</th>
+                                                                        <th style="width: 40%;"></th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                        <?php
+                                                                            foreach ($datos_det as $row_det){ 
+                                                                        ?>
+                                                                            <tr>
+                                                                                <td><?php echo $row_det["det_nom"]; ?></td>
+                                                                                <td>
+                                                                                    <a href="../../public/Documentos_Cierre/<?php echo $row_det["id_caso"]; ?>/<?php echo $row_det["det_nom"]; ?>" target="_blank" class="btn btn-inline btn-primary btn-sm">Ver</a>
+                                                                                </td>
+                                                                            </tr>
+                                                                        <?php
+                                                                            }
+                                                                        ?>
+                                                                </tbody>
+                                                            </table>
+
+                                                            </p>
+                                            <?php
+                                            
+                                            }
+                                        ?>
 									</div>
 								</div>
 							</section>
