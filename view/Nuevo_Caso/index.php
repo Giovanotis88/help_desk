@@ -76,7 +76,8 @@ if(isset($_SESSION["id_usuario"])) {
                             </select>
                         </div>
                     </div>
-
+                    
+                                        
                     <div class="form-group row">
                         <label for="categoriaSelect" class="col-sm-2 form-control-label">Categoria</label>
                         <div class="col-sm-10">

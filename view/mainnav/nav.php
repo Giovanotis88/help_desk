@@ -52,13 +52,12 @@
                     </li>
 
                     
-
-                    <!-- <li class="blue-dirty">
-                        <a href="..\N_Servicio\">
+                    <li class="blue-dirty">
+                        <a href="..\Alimentacion\">
                             <span class="glyphicon glyphicon-th"></span>
-                            <span class="lbl">Niveles De Servicio</span>
+                            <span class="lbl">Casos Alimentación</span>
                         </a>
-                    </li> -->
+                    </li> 
 
                     <!-- <li class="blue-dirty">
                         <a href="..\Categorias\">
