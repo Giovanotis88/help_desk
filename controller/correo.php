@@ -18,5 +18,9 @@
         case "ticket_asignado":
             $email->ticket_asignado($_POST["id_caso"]);
             break;
+
+            case "ticket_abiertoalim":
+                $email->ticket_abiertoalime($_POST["id_caso"]);
+                break;
     }
 ?>

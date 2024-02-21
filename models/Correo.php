@@ -204,6 +204,55 @@ class Email extends PHPMailer{
         return $this->Send();
     }
 
+    // ____________________________________________________________________________________________________________________________________________
+
+
+    public function ticket_abiertoalime($id_caso){
+        $ticket = new Caso();
+        $datos = $ticket->listar_ticket_ali($id_caso);
+        foreach ($datos as $row){
+            
+            $id = $row["id_caso"];
+            $usu = $row["correo_solicitante"];
+            $area= $row["area_solicitante"];
+            $evento=$row["tipo_evento"];
+            $suministro = $row["id_suministro"];
+            $cantidad = $row["cantidad"];
+            $desc = $row["desc_solicitud"];
+           
+        }
+
+        //IGual//
+        $this->IsSMTP();
+        $this->Host = 'smtp.office365.com';//Aqui el server
+        $this->Port = 587;//Aqui el puerto
+        $this->SMTPAuth = true;
+        $this->Username = $this->gCorreo;
+        $this->Password = $this->gContrasena;
+        $this->From = $this->gCorreo;
+        $this->SMTPSecure = '';
+        $this->FromName =  "Caso Alimentación Creado Número ".$id;
+        $this->CharSet = 'UTF8';
+        $this->addAddress($usu);
+        
+        $this->WordWrap = 50;
+        $this->IsHTML(true);
+        $this->Subject = "Caso Abierto Por medio de Mesa Logística #".$id;
+        //Igual//
+        $cuerpo = file_get_contents('../public/NuevoTicketAlimen.html'); /* Ruta del template en formato HTML */
+        /* parametros del template a remplazar */
+        $cuerpo = str_replace("xnroticket", $id, $cuerpo);
+        $cuerpo = str_replace("lblestacion", $area, $cuerpo);
+        $cuerpo = str_replace("lblgrupo", $evento, $cuerpo);
+        $cuerpo = str_replace("lblTitu", $suministro, $cuerpo);
+        $cuerpo = str_replace("lblCate", $cantidad, $cuerpo);
+        $cuerpo = str_replace("lblCate", $desc, $cuerpo);
+
+        $this->Body = $cuerpo;
+        $this->AltBody = strip_tags("Caso Abierto");
+        return $this->Send();
+    }
+
 }
 
 ?>

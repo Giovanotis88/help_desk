@@ -35,19 +35,11 @@ $(document).ready(function() {
         
         $.post("../../controller/suministro.php?op=combo", function(data, status) {
             $('#id_sumi').html(data);    
-            console.log(data);       
+            // console.log(data);       
         
         });
-        $.post("../../controller/grupo.php?op=combo", function(data, status) {
-            $('#id_grupo').html(data);            
         
-        });
-        $("#id_grupo").change(function(){
-            id_grupo = $(this).val();
-                $.post("../../controller/categoria.php?op=combo",{id_grupo : id_grupo},function(data, status){
-                 $('#id_categoria').html(data);
-            });
-        });          
+                
         
         });
 
@@ -57,7 +49,7 @@ function guardaryeditar(e){
     e.preventDefault();
     var formData = new FormData($("#caso_form")[0]);
     
-    if ($('#desc_solicitud').summernote('isEmpty')||$('#titulo').val()==''||$('#nombre_solicitante').val()==''||$('#id_estacion').val()==''){
+    if ($('#desc_solicitud').summernote('isEmpty')||$('#id_area').val()==''||$('#c_solicitante').val()==''||$('#id_evento').val()==''){
         
         swal("No Es Posible Registrar!", "Campos Incompletos, Por Favor validar !!", "warning");
     }else{
@@ -66,7 +58,7 @@ function guardaryeditar(e){
             formData.append("files[]", $('#fileelement')[0].files[i]);
         }
     $.ajax({
-        url: "../../controller/caso.php?op=guardar",
+        url: "../../controller/caso.php?op=guardaralimentos",
         type:"POST",
         data: formData,
         contentType: false,
@@ -74,17 +66,17 @@ function guardaryeditar(e){
         success: function(data){
             data=JSON.parse(data);            
             console.log(data[0].id_caso);
-            $.post("../../controller/correo.php?op=ticket_abierto", {id_caso : data[0].id_caso}, function (data) {
+            $.post("../../controller/correo.php?op=ticket_abiertoalim", {id_caso : data[0].id_caso}, function (data) {
                 console.log(data);
             });
-            $.post("../../controller/correo.php?op=ticket_asignado", {id_caso : data[0].id_caso}, function (data) {
-                console.log(data);
-            });
-            $('#id_categoria').val('');
-            $('#id_grupo').val('');
-            $('#id_estacion').val('');
-            $('#nombre_solicitante').val('');
-            $('#titulo').val('');
+            // $.post("../../controller/correo.php?op=ticket_asignado", {id_caso : data[0].id_caso}, function (data) {
+            //     console.log(data);
+            // });
+            $('#id_area').val('');
+            $('#c_solicitante').val('');
+            $('#id_evento').val('');
+            $('#id_sumi').val('');
+            $('#cantidad').val('');
             $('#desc_solicitud').summernote('reset');
             swal("Correcto!","Caso Registrado Correctamente !!","success");
         }

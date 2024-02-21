@@ -21,6 +21,28 @@
             return $resultado=$sql1->fetchAll(PDO::FETCH_ASSOC);
 
         }
+
+        public function crear_casoalim($area_solicitante,$correo_solicitante,$tipo_evento,$id_suministro,$cantidad,$desc_solicitud,$id_usuario){
+            $conectar=parent::conexion();
+            parent::set_names();
+            $sql="INSERT INTO casos_alimentacion (id_caso, area_solicitante, correo_solicitante, tipo_evento, id_suministro, cantidad, desc_solicitud, fecha_creacion, estado_caso, estado, id_usuario) VALUES (NULL, ?, ?, ?, ?, ?, ?, now(), 'Abierto', '1', ?);";
+            $sql=$conectar->prepare($sql);
+            $sql->bindValue(1, $area_solicitante);
+            $sql->bindValue(2, $correo_solicitante);
+            $sql->bindValue(3, $tipo_evento);
+            $sql->bindValue(4, $id_suministro);
+            $sql->bindValue(5, $cantidad);
+            $sql->bindValue(6, $desc_solicitud);
+            $sql->bindValue(7, $id_usuario);
+            $sql->execute();
+
+            $sql1="select last_insert_id() as 'id_caso'";
+            $sql1=$conectar->prepare($sql1);
+            $sql1->execute();
+            return $resultado=$sql1->fetchAll(PDO::FETCH_ASSOC);
+
+        }
+
         public function consulta_caso($id_usuario){
 
                 $conectar=parent::conexion();
@@ -320,7 +342,37 @@
             return $resultado=$sql->fetchAll();     
 
         } 
-        
+
+        // __________________________________________________________________________________________________________________________________________
+        // Consultas Alimentacion
+        public function listar_ticket_ali($id_caso){
+            $conectar= parent::conexion();
+            parent::set_names();
+            $sql="SELECT casos_alimentacion.id_caso,
+            casos_alimentacion.correo_solicitante,
+            casos_alimentacion.area_solicitante,
+            casos_alimentacion.tipo_evento,
+            casos_alimentacion.id_suministro,
+            casos_alimentacion.cantidad,
+            casos_alimentacion.desc_solicitud,
+            casos_alimentacion.fecha_creacion,
+            casos_alimentacion.estado_caso,
+            casos_alimentacion.id_usuario,
+            tb_suministros.nom_suministro,
+            tb_suministros.id_suministro
+            FROM
+            casos_alimentacion
+            INNER JOIN
+            tb_suministros ON casos_alimentacion.id_suministro= tb_suministros.id_suministro
+            WHERE
+            casos_alimentacion.estado=1
+            AND
+            casos_alimentacion.id_caso=?;";
+            $sql=$conectar->prepare($sql);
+            $sql->bindValue(1, $id_caso);
+            $sql->execute();
+            return $resultado=$sql->fetchAll();
+        }
     }
 
 ?>

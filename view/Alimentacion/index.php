@@ -47,17 +47,17 @@ if(isset($_SESSION["id_usuario"])) {
 
 
 
-                    <div class="form-group row">
+                    <!-- <div class="form-group row">
 						<label class="col-sm-2 form-control-label">Título (*)</label>
 						<div class="col-sm-10">
-						<input type="text" class="form-control" id="titulo" name="titulo" placeholder="Ingrese El título" require>
+						<input type="text" class="form-control" id="titulo" name="titulo" placeholder="Ingrese El título" required>
                     </div>
-                    </div>
+                    </div> -->
                     
                     <div class="form-group row">
                         <label for="estacionSelect" class="col-sm-2 form-control-label">Area Solicitante</label>
                         <div class="col-sm-10">
-                            <select id="id_area" name="id_area" class="form-control" require>
+                            <select id="id_area" name="id_area" class="form-control" required>
                             <option disabled selected></option>    
                             <option>Central de Comunicaciones</option>
                             <option >Area Administrativa </option>
@@ -75,7 +75,7 @@ if(isset($_SESSION["id_usuario"])) {
                     <div class="form-group row">
                         <label for="estacionSelect" class="col-sm-2 form-control-label">Tipo de Evento</label>
                         <div class="col-sm-10">
-                            <select id="id_evento" name="id_evento" class="form-control" require>
+                            <select id="id_evento" name="id_evento" class="form-control" required>
                             <option disabled selected></option> 
                             <option>Emergencia</option>
                             <option >Puestos Fijos</option>
@@ -100,9 +100,15 @@ if(isset($_SESSION["id_usuario"])) {
                         </div>
                     </div>
                     <div class="form-group row">
-                    <label class="col-sm-2 form-control-label">Cantidad</label>
+                    <label for="grupoSelect" class="col-sm-2 form-control-label">Cantidad</label>
                         <div class="col-sm-10">
-                        <input type="text" class="form-control" id="cantidad" name="cantidad" placeholder="Ingrese la Cantidad a Entregar" required pattern="[0-100]+" title="Por favor, ingrese solo números de 1 a 100.">
+                            <select id="cantidad" name="cantidad" class="form-control" required>
+                            <?php
+                                for ($i = 1; $i <= 100; $i++) {
+                                 echo "<option value='$i'>$i</option>";
+                                 }
+                            ?>
+                        </select>
                         </div>
                     </div>
 
@@ -112,7 +118,7 @@ if(isset($_SESSION["id_usuario"])) {
                         <label for="exampleSelect" class="col-sm-2 form-control-label">Descripcion de la solicitud (*)</label>
                         <div class="col-sm-10">
                             <div class="summernote-theme-10" >
-                                <textarea class="summernote" id="desc_solicitud" name="desc_solicitud"></textarea require>
+                                <textarea class="summernote" id="desc_solicitud" name="desc_solicitud"></textarea required>
                             </div>
                         </div>
                     </div>
