@@ -30,8 +30,10 @@ switch ($_GET["op"]) {
                     $sub_array[] = '<span class="label label-pill label-primary">Usuario</span>';
                 }elseif ($row["id_rol"]=="2"){
                     $sub_array[] = '<span class="label label-pill label-success">Soporte</span>';
+                }elseif($row["id_rol"]=="3"){
+                    $sub_array[] = '<span class="label label-pill label-danger">Administrador</span>';
                 }else{
-                    $sub_array[] = '<span class="label label-pill label-danger">Adminisrador</span>';
+                    $sub_array[] = '<span class="label label-pill ">Alimentación</span>';
                 }
 
                 $sub_array[] = '<button type="button" onClick="editar('.$row["id_usuario"].');"  id="'.$row["id_usuario"].'" class="btn btn-inline btn-warning btn-sm ladda-button"><i class="fa fa-edit"></i></button>';

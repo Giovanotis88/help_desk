@@ -41,6 +41,7 @@
                                         <option value="1">Usuario</option>
                                         <option value="2">Soporte</option>
                                         <option value="3">Administrador</option>
+                                        <option value="4">Alimentación</option>
                                      </select>
 							</div>
 							<div class="modal-footer">

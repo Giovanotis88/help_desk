@@ -246,10 +246,73 @@ class Email extends PHPMailer{
         $cuerpo = str_replace("lblgrupo", $evento, $cuerpo);
         $cuerpo = str_replace("lblTitu", $suministro, $cuerpo);
         $cuerpo = str_replace("lblCate", $cantidad, $cuerpo);
-        $cuerpo = str_replace("lblCate", $desc, $cuerpo);
+        $cuerpo = str_replace("lbldeta", $desc, $cuerpo);
 
         $this->Body = $cuerpo;
         $this->AltBody = strip_tags("Caso Abierto");
+        return $this->Send();
+    }
+
+    public function ticket_asignadoalime($tick_id){
+        $ticket = new Caso();
+        $datos = $ticket->asignacion_alimentacion($tick_id);
+        foreach ($datos as $row){
+            $id = $row["id_caso"];
+            $estacion=$row["nombre_estacion"];
+            $grupo= $row["nombre_grupo"];
+            $usu = $row["nombre_usuario"];
+            $titulo = $row["titulo"];
+            $estacion=$row["nombre_estacion"];
+            $categoria = $row["nombre_categoria"];
+            $desc=$row["desc_solicitud"];
+            $docu=$row["nombre_documento"];
+            
+            $correo1 = $row["correo_1"];
+            $correo2 = $row["correo_2"];
+            $correo3 = $row["correo_3"];
+            $correo4 = $row["correo_4"];
+            $correo5 = $row["correo_5"];
+            $correo6 = $row["correo_6"];
+        }
+
+        //IGual//
+        $this->IsSMTP();
+        $this->Host = 'smtp.office365.com';//Aqui el server
+        $this->Port = 587;//Aqui el puerto
+        $this->SMTPAuth = true;
+        $this->Username = $this->gCorreo;
+        $this->Password = $this->gContrasena;
+        $this->From = $this->gCorreo;
+        $this->SMTPSecure = 'tls';
+        $this->FromName =  "Caso Asignado Número" ." ".$id ."  ".$grupo;
+        $this->CharSet = 'UTF8';
+        $this->addAddress($correo1);
+        $this->addAddress($correo2);
+        $this->addAddress($correo3);
+        $this->addAddress($correo4);
+        $this->addAddress($correo5);
+        $this->addAddress($correo6);
+        $archivo_adjunto = '../public/Documentos/'.$id.'/'.$docu;
+        
+        $this->addAttachment($archivo_adjunto); // Agregar archivo adjunto
+        
+        $this->WordWrap = 50;
+        $this->IsHTML(true);
+        $this->Subject = "Caso Asignado Mesa Logística # ".$id;
+        //Igual//
+        $cuerpo = file_get_contents('../public/AsignarTicket.html'); /* Ruta del template en formato HTML */
+        /* parametros del template a remplazar */
+        
+        $cuerpo = str_replace("xsolicitante", $estacion, $cuerpo);
+        $cuerpo = str_replace("xnroticket", $id, $cuerpo);
+        $cuerpo = str_replace("lblNomUsu", $usu, $cuerpo);
+        $cuerpo = str_replace("lblgrup", $grupo, $cuerpo);
+        $cuerpo = str_replace("lblTitu", $titulo, $cuerpo);
+        $cuerpo = str_replace("lblCate", $categoria, $cuerpo);
+        $cuerpo = str_replace("lbldeta", $desc, $cuerpo);
+
+        $this->Body = $cuerpo;
+        $this->AltBody = strip_tags("Caso Asignado");
         return $this->Send();
     }
 

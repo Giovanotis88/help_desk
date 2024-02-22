@@ -373,6 +373,40 @@
             $sql->execute();
             return $resultado=$sql->fetchAll();
         }
+
+        public function asignacion_alimentacion($id_caso){
+            $conectar= parent::conexion();
+            parent::set_names();
+            $sql="SELECT 
+            casos_alimentacion.id_caso,
+            casos_alimentacion.area_solicitante,
+            casos_alimentacion.correo_solicitante,
+            casos_alimentacion.tipo_evento,
+            casos_alimentacion.id_suministro,
+            casos_alimentacion.cantidad,
+            casos_alimentacion.desc_solicitud,
+            casos_alimentacion.fecha_creacion,
+            casos_alimentacion.estado_caso,
+            casos_alimentacion.estado,
+            casos_alimentacion.id_rol,
+            tb_suministros.id_suministro,
+            tb_suministros.nom_suministro,
+            tb_suministros.precio_unitario,
+            tb_usuarios.usuario_correo,
+            tb_usuarios.id_rol
+            FROM
+            casos_alimentacion
+            INNER JOIN
+            tb_usuarios ON  casos_alimentacion.id_rol = tb_usuarios.id_rol
+            INNER JOIN
+            tb_suministros ON casos_alimentacion.id_suministro= tb_suministros.id_suministro
+            WHERE
+            casos_alimentacion.id_caso= 3;";
+            $sql=$conectar->prepare($sql);
+            $sql->bindValue(1, $id_caso);
+            $sql->execute();
+            return $resultado=$sql->fetchAll();
+        }
     }
 
 ?>
