@@ -4,6 +4,38 @@ function init (){
     });
 }
 
+$('#id_mas').change(function() {
+    if ($(this).val() == "Si") {
+        $('#opciones-adicionales').show();
+        $('#opciones-adicionales2').show();
+        $('#opciones-adicionales3').show();
+        $('#opciones-adicionales4').show();
+        $('#opciones-adicionales5').show();
+        $('#opciones-adicionales6').show();
+    } else {
+        $('#opciones-adicionales').hide();
+        $('#opciones-adicionales2').hide();
+        $('#opciones-adicionales3').hide();
+        $('#opciones-adicionales4').hide();
+        $('#opciones-adicionales5').hide();
+        $('#id_mas2').hide();
+    }
+});
+$('#id_mas2').change(function() {
+    if ($(this).val() == "Si") {
+        $('#opciones-adicionales6').show();
+        $('#opciones-adicionales7').show();
+        $('#opciones-adicionales8').show();
+        $('#opciones-adicionales9').show();
+        
+       
+    } else {
+        $('#opciones-adicionales6').hide();
+        $('#opciones-adicionales7').hide();
+        $('#opciones-adicionales8').hide();
+        $('#opciones-adicionales9').hide();
+    }
+});
 
 
 $(document).ready(function() {
@@ -31,6 +63,12 @@ $(document).ready(function() {
             ['height', ['height']]
           ]
 
+    });
+
+    $.post("../../controller/suministro.php?op=combo", function(data, status) {
+        $('#id_sumi2').html(data);    
+        // console.log(data);       
+    
     });
         
         $.post("../../controller/suministro.php?op=combo", function(data, status) {
